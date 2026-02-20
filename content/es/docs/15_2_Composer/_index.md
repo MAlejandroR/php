@@ -108,11 +108,25 @@ Ese archivo registra internamente una función mediante `spl_autoload_register()
 
 ---
 {{<desplegable title="Ejemplo de proyecto" >}}
-* Supongamos que tenemos esta estructura de proyecto
-* 
-![img.png](img.png)
+{{<color>}}Puedes clonarte el proyecto de git{{</color>}}. Revisa el Readme.md
+{{< highlight bash "linenos=table, hl_lines=1" >}}
+https://github.com/MAlejandroR/composer.git
+
+{{< /highlight>}}
+
+Trabajamos con la siguiente estructura de un proyecto
+
+{{<line>}}
+
+
+{{% imgproc img Fill "400x450" %}}
+Norway Spruce *Picea abies* shoot with foliage buds.
+{{% /imgproc %}}
+{{<line>}}
+
 
 Cada clase simplemente tiene el código con el **__toString()**
+
 
 {{< highlight php  "linenos=table, hl_lines=" >}}
 class A{
@@ -155,9 +169,7 @@ echo $k;
 
 
 {{< /highlight>}}
-* tienes este proyecto disponible en 
- https://github.com/MAlejandroR/composer.git
-* Clónalo y ve verificando cada rama como se expone en el Readme
+
 
 {{</desplegable>}}
 
