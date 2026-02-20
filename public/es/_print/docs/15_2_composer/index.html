@@ -1,0 +1,671 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="es" class="no-js">
+  <head><script src="/php/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=php/livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="canonical" type="text/html" href="http://localhost:1313/php/es/docs/15_2_composer/">
+<link rel="alternate" type="application/rss&#43;xml" href="http://localhost:1313/php/es/docs/15_2_composer/index.xml">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="/php/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/php/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/php/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/php/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/php/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/php/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/php/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/php/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/php/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/php/favicons/android-192x192.png" sizes="192x192">
+
+<title>Composer | Desarrollo Web en Entorno Servidor</title>
+<meta name="description" content="{0xc0007a6500 0xc000cfe760}">
+
+
+<meta property="og:url" content="http://localhost:1313/php/es/docs/15_2_composer/">
+  <meta property="og:site_name" content="Desarrollo Web en Entorno Servidor">
+  <meta property="og:title" content="Composer">
+  <meta property="og:description" content="Objetivos Qué veremos aquí Comprender qué es Composer y su papel en el ecosistema PHP Entender cómo gestiona dependencias externas Aprender cómo funciona el sistema de autoload Diferenciar classmap y PSR-4 Relacionar namespaces con estructura de directorios ¿Qué es Composer? Composer es el gestor de dependencias estándar de PHP.">
+  <meta property="og:locale" content="es">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Composer">
+  <meta itemprop="description" content="Objetivos Qué veremos aquí Comprender qué es Composer y su papel en el ecosistema PHP Entender cómo gestiona dependencias externas Aprender cómo funciona el sistema de autoload Diferenciar classmap y PSR-4 Relacionar namespaces con estructura de directorios ¿Qué es Composer? Composer es el gestor de dependencias estándar de PHP.">
+  <meta itemprop="datePublished" content="2024-10-15T07:04:49+02:00">
+  <meta itemprop="dateModified" content="2024-10-15T07:04:49+02:00">
+  <meta itemprop="wordCount" content="698">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Composer">
+  <meta name="twitter:description" content="Objetivos Qué veremos aquí Comprender qué es Composer y su papel en el ecosistema PHP Entender cómo gestiona dependencias externas Aprender cómo funciona el sistema de autoload Diferenciar classmap y PSR-4 Relacionar namespaces con estructura de directorios ¿Qué es Composer? Composer es el gestor de dependencias estándar de PHP.">
+
+
+<link href="/php/scss/main.css" rel="stylesheet">
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="td-navbar js-navbar-scroll "  data-bs-theme="dark">
+<div class="container-fluid flex-column flex-md-row ">
+  <a class="navbar-brand" href="/php/es/"><span class="navbar-brand__logo navbar-logo">
+    <img src="/php/images/logo.png" alt="Logo" width="150" height="auto" />
+    </span><span class="navbar-brand__name">Desarrollo Web en Entorno Servidor</span></a>
+  <div class="td-navbar-nav-scroll ms-md-auto" id="main_navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown d-none d-lg-block">
+        <div class="dropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Español</a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="/php/en/">English</a></li>
+    <li><a class="dropdown-item" href="/php/fr/">Francés</a></li>
+    </ul>
+</div></li>
+      <li class="td-light-dark-menu nav-item dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        data-bs-display="static"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+
+      </li>
+      </ul>
+  </div>
+  <div class="d-none d-lg-block">
+    
+  </div>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+Versión imprimible multipagina.
+<a href="#" onclick="print();return false;">Haga click aquí para imprimir</a>.
+</p><p>
+<a href="/php/es/docs/15_2_composer/">Volver a la vista normal de esta página</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Composer</h1>
+
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-82918f47b7e7956607a57b3b2c15c798">Composer y Docker </a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+
+    </ul>
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+
+
+
+
+<div style="border: 1px solid darkgreen; border-radius: 5px; overflow: hidden;">
+    <div style="background-color:darkgreen; color:white;
+    font-weight:bold; padding:10px; display: flex; align-items: center;">
+        
+        <span style="margin-right: 8px;">
+            
+                <i class="fas fa-check-circle"></i> 
+            
+        </span>
+        
+        <span>Objetivos</span>
+    </div>
+
+    <h3 style="padding: 5px; font-weight:bold">Qué veremos aquí</h3>
+
+    <hr style="border-color:seagreen; border-width:3px"/>
+    
+    <div style="background-color:#d0f0d0; color:darkgreen; padding: 10px;">
+        <ul>
+            
+            <li>Comprender qué es Composer y su papel en el ecosistema PHP  </li>
+            
+            <li>Entender cómo gestiona dependencias externas  </li>
+            
+            <li>Aprender cómo funciona el sistema de autoload  </li>
+            
+            <li>Diferenciar classmap y PSR-4  </li>
+            
+            <li>Relacionar namespaces con estructura de directorios  </li>
+            
+            
+            
+        </ul>
+    </div>
+    
+
+
+</div>
+
+<h2 id="qué-es-composer">¿Qué es Composer?</h2>
+<p>
+<strong>
+<span class="font-weight-bold text-primary">
+
+    Composer
+
+
+</span>
+</strong>
+ es el gestor de dependencias estándar de PHP.</p>
+<p>Del mismo modo que un <strong>director de orquesta</strong> coordina los instrumentos para que la música suene de forma armoniosa, <strong>Composer</strong> actúa como un <strong>orquestador del proyecto PHP</strong>.</p>
+<p>Su función principal es gestionar de forma unificada todos los <strong>paquetes, librerías y dependencias</strong> que una aplicación necesita para funcionar correctamente.</p>
+<hr>
+<h2 id="qué-hace-composer">¿Qué hace Composer?</h2>
+<p>Entre sus funciones principales, Composer permite:</p>
+<ul>
+<li>Instalar y actualizar <strong>librerías y paquetes de terceros</strong> de forma controlada.</li>
+<li>Resolver automáticamente las versiones compatibles entre dependencias.</li>
+<li>Generar el sistema de <strong>carga automática (autoload)</strong> para las clases del proyecto y sus dependencias.</li>
+</ul>
+<p>Composer <strong>no ejecuta las clases ni interpreta el código</strong>.<br>
+Su función es generar la infraestructura necesaria para que PHP pueda localizar y cargar las clases cuando se necesiten.</p>
+<hr>
+<h3 id="instalación-de-composer">Instalación de composer</h3>
+<ul>
+<li>Toda la información en la página oficial <a href="https://getcomposer.org/">https://getcomposer.org/</a></li>
+<li>El proceso de instación en windows consiste en descargar un fichero ejecutable e instalarlo</li>
+<li>En linux, para acceder a la última versión lo mejor es descargarse el fichero de su página oficial
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>  <span style="color:#a6e22e">php</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">r</span> <span style="color:#e6db74">&#34;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">php</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">r</span> <span style="color:#e6db74">&#34;if (hash_file(&#39;sha384&#39;, &#39;composer-setup.php&#39;) === &#39;c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47&#39;) { echo &#39;Installer verified&#39;.PHP_EOL; } else { echo &#39;Installer corrupt&#39;.PHP_EOL; unlink(&#39;composer-setup.php&#39;); exit(1); }&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">php</span> <span style="color:#a6e22e">composer</span><span style="color:#f92672">-</span><span style="color:#a6e22e">setup</span><span style="color:#f92672">.</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">php</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">r</span> <span style="color:#e6db74">&#34;unlink(&#39;composer-setup.php&#39;);&#34;</span></span></span></code></pre></div>
+<ul>
+<li>Esto descarga y crea un ejecutable en la carpeta llamado 
+<strong>
+<span class="font-weight-bold text-primary">
+
+    composer.phar
+
+
+</span>
+</strong>
+</li>
+<li>Ahora lo copiamos a un directorio que esté en el path del sistema
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>    <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">mv</span> <span style="color:#a6e22e">composer</span><span style="color:#f92672">.</span><span style="color:#a6e22e">phar</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">usr</span><span style="color:#f92672">/</span><span style="color:#a6e22e">local</span><span style="color:#f92672">/</span><span style="color:#a6e22e">sbin</span><span style="color:#f92672">/</span><span style="color:#a6e22e">composer</span></span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h2 id="el-fichero-composerjson">El fichero composer.json</h2>
+<p>Composer utiliza el fichero <code>composer.json</code> como <strong>descriptor del proyecto</strong>.</p>
+<p>En él se definen:</p>
+<ul>
+<li>Las dependencias (<code>require</code>)</li>
+<li>Las reglas de autoload (<code>autoload</code>)</li>
+<li>Metadatos como autor, versión o licencia</li>
+<li>Scripts y configuraciones adicionales</li>
+</ul>
+<p>Ejemplo básico:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;require&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;monolog/monolog&#34;</span>: <span style="color:#e6db74">&#34;^3.0&#34;</span>
+</span></span><span style="display:flex;"><span>     },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;autoload&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;psr-4&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;MiProyecto\\&#34;</span>: <span style="color:#e6db74">&#34;src/&#34;</span>
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<hr>
+<h2 id="el-problema-que-resuelve-el-autoload">El problema que resuelve el autoload</h2>
+<p>Sin autoload, deberíamos incluir manualmente cada archivo:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#66d9ef">require</span> <span style="color:#e6db74">&#39;Clases/Usuario.php&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">require</span> <span style="color:#e6db74">&#39;Clases/Producto.php&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">require</span> <span style="color:#e6db74">&#39;Clases/Pedido.php&#39;</span>;</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Problemas:</p>
+<ul>
+<li>Código repetitivo</li>
+<li>Posibles olvidos</li>
+<li>Dificultad de mantenimiento</li>
+<li>Escasa escalabilidad</li>
+</ul>
+<p>Con Composer, solo necesitamos:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#66d9ef">require</span> <span style="color:#e6db74">&#34;vendor/autoload.php&#34;</span>;</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Ese archivo registra internamente una función mediante <code>spl_autoload_register()</code> que permite a PHP cargar automáticamente las clases cuando se instancian.</p>
+<hr>
+<h1 id="usando-composer-con-classmap">Usando Composer con <em>classmap</em></h1>
+<h2 id="cómo-funciona-classmap">¿Cómo funciona classmap?</h2>
+<p>Composer escanea los directorios indicados y genera un <strong>mapa estático</strong> que asocia cada clase con su ruta exacta.</p>
+<h2 id="configuración-en-composerjson">Configuración en composer.json</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;autoload&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;classmap&#34;</span>: [
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;Clases&#34;</span>
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="generar-el-autoload">Generar el autoload</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>    composer install</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>o</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>    composer update</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Al ejecutar estos comandos, Composer crea la carpeta <code>vendor/</code> y genera el fichero <code>vendor/autoload.php</code>.</p>
+<p>Si añadimos nuevas clases usando classmap, debemos regenerar el mapa:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>    composer dumpautoload</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<hr>
+<h1 id="usando-psr-4">Usando PSR-4</h1>
+<p>PSR-4 es el método moderno y recomendado de autocarga.</p>
+<p>Se basa en una relación directa entre:</p>
+<ul>
+<li>Namespace</li>
+<li>Estructura de directorios</li>
+</ul>
+<h2 id="configuración-en-composerjson-1">Configuración en composer.json</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;autoload&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;psr-4&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;MiProyecto\\&#34;</span>: <span style="color:#e6db74">&#34;src/&#34;</span>
+</span></span><span style="display:flex;"><span>           }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Esto significa que:</p>
+<ul>
+<li>Las clases con namespace <code>MiProyecto</code> se cargarán desde la carpeta <code>src/</code>.</li>
+</ul>
+<hr>
+<h2 id="espacio-de-nombres-namespace">Espacio de nombres (namespace)</h2>
+<p>Un <strong>namespace</strong> permite organizar clases, funciones e interfaces evitando conflictos de nombres.</p>
+<p>Ejemplo:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>    <span style="color:#66d9ef">namespace</span> <span style="color:#a6e22e">MiProyecto\Modelos</span>;</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Debe ubicarse en:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>    <span style="color:#a6e22e">src</span><span style="color:#f92672">/</span><span style="color:#a6e22e">Modelos</span><span style="color:#f92672">/</span><span style="color:#a6e22e">Usuario</span><span style="color:#f92672">.</span><span style="color:#a6e22e">php</span></span></span></code></pre></div></p>
+<p>Composer resuelve la ruta del fichero aplicando reglas de transformación entre namespace y estructura de directorios.</p>
+<p>Si añadimos nuevas clases dentro de esa estructura, <strong>no es necesario regenerar el autoload</strong>, siempre que no modifiquemos <code>composer.json</code>.</p>
+<hr>
+<h3 id="comparativa-classmap-vs-psr-4">Comparativa: classmap vs PSR-4</h3>
+<h4 id="classmap">classmap</h4>
+<p><strong>Cómo funciona</strong></p>
+<p>Genera un mapa estático clase → ruta.</p>
+<p><strong>Ventajas</strong></p>
+<ul>
+<li>Muy sencillo</li>
+<li>No requiere namespaces</li>
+<li>Útil en proyectos heredados</li>
+</ul>
+<p><strong>Inconvenientes</strong></p>
+<ul>
+<li>Requiere regenerar el mapa al añadir clases</li>
+<li>No impone estructura modular</li>
+</ul>
+<hr>
+<h4 id="psr-4">PSR-4</h4>
+<p><strong>Cómo funciona</strong></p>
+<p>Transforma automáticamente namespace en ruta de archivo.</p>
+<p><strong>Ventajas</strong></p>
+<ul>
+<li>Estándar moderno</li>
+<li>Escalable y modular</li>
+<li>No requiere regenerar al añadir clases (si no cambia composer.json)</li>
+<li>Facilita evitar conflictos de nombres</li>
+</ul>
+<p><strong>Inconvenientes</strong></p>
+<ul>
+<li>Requiere usar namespaces</li>
+<li>Obliga a mantener coherencia estructural</li>
+</ul>
+<hr>
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Resumen</h4>
+
+    <p>El autoload no es solo comodidad,  <strong>Es un mecanismo estructural que:</strong></p>
+<p><em>- Impone organización</em>
+<em>- Facilita la escalabilidad</em>
+<em>- Estandariza la arquitectura del proyecto</em></p>
+<p><strong>PSR-4 es el estándar utilizado por Laravel, Symfony y la mayoría del ecosistema PHP moderno.</strong></p>
+
+
+</div>
+
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-82918f47b7e7956607a57b3b2c15c798">1 - Composer y Docker </h1>
+    
+	<h1 id="cómo-usar-composer-cuando-estamos-trabajando-con-docker">Cómo usar Composer cuando estamos trabajando con Docker</h1>
+<p>En desarrollo web es muy habitual trabajar con Docker.<br>
+En proyectos PHP y Laravel necesitamos usar <strong>Composer</strong>, y existen varias maneras de hacerlo.</p>
+<p>A continuación tienes las formas más sencillas, explicadas para que puedas elegir la que mejor se adapte a tu proyecto.</p>
+<hr>
+<h2 id="opción-1-usar-composer-instalado-en-tu-ordenador-si-usas-linux-o-wsl">Opción 1: Usar Composer instalado en tu ordenador (si usas Linux o WSL)</h2>
+<p>Esta es la forma más fácil.</p>
+<p>Instalamos Composer en el sistema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install composer</span></span></code></pre></div>
+<p>Después podemos ejecutar Composer incluso si el proyecto está dentro de un contenedor:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>composer install
+</span></span><span style="display:flex;"><span>composer update</span></span></code></pre></div>
+<h3 id="ventajas">Ventajas</h3>
+<ul>
+<li>Muy rápido</li>
+<li>No hay problemas de permisos</li>
+<li>Funciona igual que fuera de Docker</li>
+</ul>
+<h3 id="inconvenientes">Inconvenientes</h3>
+<ul>
+<li>Necesitas tener PHP y Composer instalados en tu máquina</li>
+</ul>
+<hr>
+<h2 id="opción-2-usar-composer-dentro-del-contenedor">Opción 2: Usar Composer <strong>dentro del contenedor</strong></h2>
+<p>Puedes entrar al contenedor donde corre PHP y ejecutar allí Composer:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker exec -it web bash
+</span></span><span style="display:flex;"><span>composer install</span></span></code></pre></div>
+<h3 id="problema-importante">Problema importante</h3>
+<p>Los archivos generados (como <code>vendor/</code>) quedan con permisos <strong>root</strong>, porque Composer se ejecuta dentro del contenedor.</p>
+<p>Esto puede darte errores al editar o borrar archivos.</p>
+<hr>
+<h2 id="opción-3-instalar-composer-dentro-del-dockerfile-la-mejor-para-producción">Opción 3: Instalar Composer dentro del Dockerfile (la mejor para producción)</h2>
+<p>Es la opción profesional.<br>
+No descargamos nada a mano: <strong>copiamos Composer directamente desde la imagen oficial</strong>.</p>
+<p>Ejemplo de Dockerfile:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">php:8.2-apache</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># Copiar Composer desde la imagen oficial</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>composer:latest /usr/bin/composer /usr/bin/composer</span></span></code></pre></div>
+<h3 id="ventajas-1">Ventajas</h3>
+<ul>
+<li>Es 100% reproducible (lo mismo para todos los desarrolladores)</li>
+<li>Más seguro y más limpio que usar curl</li>
+<li>Composer siempre disponible en el contenedor</li>
+</ul>
+<h3 id="inconvenientes-1">Inconvenientes</h3>
+<ul>
+<li>En desarrollo local, los vendors serán creados por root (igual que en opción 2)</li>
+</ul>
+<hr>
+<h2 id="opción-4-alias-composer-docker-no-instalas-nada-en-tu-pc">Opción 4: Alias “composer-docker” (no instalas nada en tu PC)</h2>
+<p>Podemos crear un alias que ejecuta Composer
+Para ello necesitamos crear una función, ya que necesitamos parámetros, y esto no lo podemos hacer con un alias</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>composer-docker <span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span> docker exec -it web bash -c <span style="color:#e6db74">&#34;cd /var/www/html/</span>$1<span style="color:#e6db74"> &amp;&amp; composer </span><span style="color:#e6db74">${</span>@:2<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span></span></span></code></pre></div>
+<ul>
+<li>$1 =&gt; es el primer parámetro (el proyecto dónde queremos ejectuar composer)</li>
+<li>${@:2} =&gt; Resto de parámetros desde el segundo</li>
+</ul>
+<p>Opcionalmente si siempre vamos a ejecutar composer en la carpeta correspondiente (recomendado), mejor usar</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>composer-docker <span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>PROJECT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>docker exec -it web bash -c <span style="color:#e6db74">&#34;cd /var/www/html/</span>$PROJECT<span style="color:#e6db74"> &amp;&amp; composer </span>$@<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span></span></span></code></pre></div>
+<ul>
+<li>En este caso pwd es el directorio actual</li>
+<li>$@ representa todos los parámetros
+Uso:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>composer-docker install
+</span></span><span style="display:flex;"><span>composer-docker update</span></span></code></pre></div>
+<h3 id="ventaja">Ventaja</h3>
+<ul>
+<li>No instalas Composer en tu ordenador</li>
+</ul>
+<h3 id="inconveniente">Inconveniente</h3>
+<ul>
+<li>Los archivos generados serán de root</li>
+</ul>
+<hr>
+<h1 id="cuál-deberías-usar-">¿Cuál deberías usar ?</h1>
+<ul>
+<li><strong>Linux o WSL → Opción 1 (Composer en tu sistema).</strong></li>
+<li><strong>Windows sin WSL → Opción 4.</strong></li>
+<li><strong>Proyectos profesionales → Opción 3 (Dockerfile con COPY).</strong></li>
+<li><strong>Si ya estás dentro del contenedor → Opción 2.</strong></li>
+</ul>
+<hr>
+
+</div>
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      <footer class="td-footer row d-print-none">
+  <div class="container-fluid">
+    <div class="row mx-md-2">
+      <div class="td-footer__left col-6 col-sm-4 order-sm-1">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="manuelromeromiguel@gmail.com" aria-label="manuelromeromiguel@gmail.com">
+    <a target="_blank" rel="noopener" href="mailto:manuelromeromiguel@gmail.com" aria-label="manuelromeromiguel@gmail.com">
+      <i class="fa fa-envelope"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="GitHub" aria-label="GitHub">
+    <a target="_blank" rel="noopener" href="https://github.com/MAlejandroR" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__right col-6 col-sm-4 order-sm-3">
+        
+      </div><div class="td-footer__center col-12 col-sm-4 py-2 order-sm-2">
+        <span class="td-footer__copyright">&copy;
+    2026
+    <span class="td-footer__authors">@MRomero</span></span><span class="td-footer__all_rights_reserved">Derechos reservados</span><span class="ms-2"><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de privacidad</a></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <script src="/php/js/main.js"></script>
+<script defer src="/php/js/click-to-copy.js" crossorigin="anonymous"></script>
+<script src='/php/js/tabpane-persist.js'></script>
+
+  </body>
+</html>
