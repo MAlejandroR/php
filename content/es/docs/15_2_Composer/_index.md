@@ -107,10 +107,13 @@ require "vendor/autoload.php";
 Ese archivo registra internamente una función mediante `spl_autoload_register()` que permite a PHP cargar automáticamente las clases cuando se instancian.
 
 ---
-{{<desplegable title="Ejemplo de proyecto>}}
-*Supongamos que tenemos esta estructura de proyecto
+{{<desplegable title="Ejemplo de proyecto" >}}
+* Supongamos que tenemos esta estructura de proyecto
+* 
 ![img.png](img.png)
-Cada clase simplemente tiene el código con el __toString()
+
+Cada clase simplemente tiene el código con el **__toString()**
+
 {{< highlight php  "linenos=table, hl_lines=" >}}
 class A{
     public function __toString(){
@@ -118,7 +121,9 @@ class A{
     }
 }
 {{< /highlight>}}
-*En el index queremos instanciar cada clase
+
+* En el index queremos instanciar cada clase
+ 
 {{< highlight php"linenos=table, hl_lines=" >}}
 <?php
 //Aquí faltaría la autocarga
@@ -150,6 +155,10 @@ echo $k;
 
 
 {{< /highlight>}}
+* tienes este proyecto disponible en 
+ https://github.com/MAlejandroR/composer.git
+* Clónalo y ve verificando cada rama como se expone en el Readme
+
 {{</desplegable>}}
 
 # Usando Composer con *classmap*
