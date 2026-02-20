@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../certificado/.idea/certificado.iml" filepath="$PROJECT_DIR$/../../certificado/.idea/certificado.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../dwes/.idea/dwes.iml" filepath="$PROJECT_DIR$/../../dwes/.idea/dwes.iml" />
+      <module fileurl="file:///var/www/html/.idea/html.iml" filepath="/var/www/html/.idea/html.iml" />
+      <module fileurl="file://$USER_HOME$/php/.idea/php.iml" filepath="$USER_HOME$/php/.idea/php.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/php_certificado.iml" filepath="$PROJECT_DIR$/.idea/php_certificado.iml" />
+      <module fileurl="file://$USER_HOME$/php/app/sintaxis/.idea/sintaxis.iml" filepath="$USER_HOME$/php/app/sintaxis/.idea/sintaxis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../web_certificado/.idea/web_certificado.iml" filepath="$PROJECT_DIR$/../web_certificado/.idea/web_certificado.iml" />
+    </modules>
+  </component>
+</project>
