@@ -120,7 +120,7 @@ Trabajamos con la siguiente estructura de un proyecto
 
 
 {{% imgproc img Fill "400x450" %}}
-Norway Spruce *Picea abies* shoot with foliage buds.
+
 {{% /imgproc %}}
 {{<line>}}
 
