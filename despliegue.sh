@@ -7,9 +7,11 @@ git push origin main
 
 # Elimina el directorio public
 sudo rm -r ./public
+echo "Borrando public"
 
 # Genera el sitio con Hugo
 hugo -d public
+echo "Generando public"
 
 # Sincroniza los archivos al servidor remoto usando rsync con puerto SSH 22123
 rsync -avz -e "ssh -p 22123" ./public/ admin@web.infenlaces.com:web/web.infenlaces.com/public_html/php/
